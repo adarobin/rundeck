@@ -3,9 +3,11 @@ rundeck
 
 This repository contains the source for the [Rundeck](http://rundeck.org/) [docker](https://docker.io) image.
 
+It is a fork of [jjethwa/rundeck](https://github.com/jjethwa/rundeck) modified to use CentOS 7 instead of Debian
+
 # Image details
 
-1. Based on debian:stretch
+1. Based on CentOS 7
 1. Supervisor, Apache2, and rundeck
 1. No SSH.  Use docker exec or [nsenter](https://github.com/jpetazzo/nsenter)
 1. If RUNDECK_PASSWORD is not supplied, it will be randomly generated and shown via stdout.
@@ -13,24 +15,17 @@ This repository contains the source for the [Rundeck](http://rundeck.org/) [dock
 1. As always, update passwords for pre-installed accounts
 1. I sometimes get connection reset by peer errors when building the Docker image from the Rundeck download URL.  Trying again usually works.
 
-
-# Automated build
-
-```
-docker pull jordan/rundeck
-```
-
 # Usage
 Start a new container and bind to host's port 4440
 
 ```
-sudo docker run -p 4440:4440 -e SERVER_URL=http://MY.HOSTNAME.COM:4440 --name rundeck -t jordan/rundeck:latest
+sudo docker run -p 4440:4440 -e SERVER_URL=http://MY.HOSTNAME.COM:4440 --name rundeck -t adarobin/rundeck:latest
 ```
 
 # SSL
 Start a new container, bind to host's port 4443, and enable SSL.   Note: Make sure to update /etc/rundeck/ssl/keystore and /etc/rundeck/ssl/truststore for Production systems as the default certificate is self-signed. Set KEYSTORE_PASS & TRUSTSTORE_PASS to the passwords of those files. Both files can be volume mounted.
 ```
-sudo docker run -p 4443:4443 -e SERVER_URL=https://MY.HOSTNAME.COM:4443 -e RUNDECK_WITH_SSL=true --name rundeck -t jordan/rundeck:latest
+sudo docker run -p 4443:4443 -e SERVER_URL=https://MY.HOSTNAME.COM:4443 -e RUNDECK_WITH_SSL=true --name rundeck -t adarobin/rundeck:latest
 ```
 
 # Rundeck plugins
@@ -62,8 +57,6 @@ RUNDECK_STORAGE_PROVIDER - Options file (default) or db.  See: http://rundeck.or
 RUNDECK_PROJECT_STORAGE_TYPE - Options file (default) or db.  See: http://rundeck.org/docs/administration/setting-up-an-rdb-datasource.html
 
 GUI_BRAND_HTML - HTML to show as title in app header. See: http://rundeck.org/docs/administration/gui-customization.html. Useful to show Rundeck environment where multiple Rundeck instances are deployed, e.g. GUI_BRAND_HTML='<span class="title">QA Environment</span>'
-
-DEBIAN_SYS_MAINT_PASSWORD - No longer used as of Debian Stretch
 
 NO_LOCAL_MYSQL - false (default).  Set to true if using an external MySQL container or instance.  Make sure to set DATABASE_URL and RUNDECK_PASSWORD (used for JDBC connection to MySQL).  Further details for setting up MYSQL: http://rundeck.org/docs/administration/setting-up-an-rdb-datasource.html
 
