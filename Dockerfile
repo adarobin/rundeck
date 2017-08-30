@@ -17,8 +17,13 @@ ENV SERVER_URL=https://localhost:4443 \
 RUN yum -y install http://repo.rundeck.org/latest.rpm && \
     yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum -y install https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm && \
-    yum -y install java-1.8.0-openjdk-headless rundeck rundeck-cli supervisor openssh-clients mysql-community-server mysql-community-client pwgen sudo ca-certificates git && \
-    yum -y update && yum clean all && \
+    yum -y install java-1.8.0-openjdk-headless rundeck rundeck-cli supervisor openssh-clients \
+                   mysql-community-server mysql-community-client pwgen sudo ca-certificates git \
+                   make ruby ruby-devel gcc && \
+    yum -y update && \
+    yum clean all && \
+    gem install winrm -v 1.8.1 && \
+    gem install winrm-fs -v 0.4.3 && \
     mkdir -p /var/lib/rundeck/.ssh && \
     chown rundeck:rundeck /var/lib/rundeck/.ssh
 
