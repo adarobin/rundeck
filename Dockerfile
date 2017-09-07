@@ -19,7 +19,7 @@ RUN yum -y install http://repo.rundeck.org/latest.rpm && \
     yum -y install https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm && \
     yum -y install java-1.8.0-openjdk-headless rundeck-2.9.3-1.37.GA rundeck-cli supervisor openssh-clients \
                    mysql-community-server mysql-community-client pwgen sudo ca-certificates git \
-                   make ruby ruby-devel gcc && \
+                   make ruby ruby-devel gcc redhat-lsb-core && \
     yum -y update && \
     yum clean all && \
     gem install winrm -v 1.8.1 && \
