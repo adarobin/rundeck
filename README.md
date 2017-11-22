@@ -11,7 +11,7 @@ It is a fork of [jjethwa/rundeck](https://github.com/jjethwa/rundeck) modified t
 1. Supervisor, Apache2, and rundeck
 1. No SSH.  Use docker exec or [nsenter](https://github.com/jpetazzo/nsenter)
 1. If RUNDECK_PASSWORD is not supplied, it will be randomly generated and shown via stdout.
-1. Supply the SERVER_URL or it will default to https://0.0.0.0:4443
+1. Supply the EXTERNAL_SERVER_URL or it will default to https://0.0.0.0:4443
 1. As always, update passwords for pre-installed accounts
 1. I sometimes get connection reset by peer errors when building the Docker image from the Rundeck download URL.  Trying again usually works.
 
@@ -19,7 +19,7 @@ It is a fork of [jjethwa/rundeck](https://github.com/jjethwa/rundeck) modified t
 Start a new container and bind to host's port 4440
 
 ```
-sudo docker run -p 4440:4440 -e SERVER_URL=http://MY.HOSTNAME.COM:4440 --name rundeck -t adarobin/rundeck:latest
+sudo docker run -p 4440:4440 -e EXTERNAL_SERVER_URL=http://MY.HOSTNAME.COM:4440 --name rundeck -t adarobin/rundeck:latest
 ```
 
 # SSL
@@ -38,7 +38,7 @@ The entrypoint run script will check for docker secrets set for RUNDECK_PASSWORD
 # Environment variables
 
 ```
-SERVER_URL - Full URL in the form http://MY.HOSTNAME.COM:4440, http//123.456.789.012:4440, etc
+SERVER_URL (deprecated - Use EXTERNAL_SERVER_URL) - Full URL in the form http://MY.HOSTNAME.COM:4440, http//123.456.789.012:4440, etc
 
 EXTERNAL_SERVER_URL - Use this if you are running rundeck behind a proxy.  This is useful if you run rundeck through some kind of external network gateway/load balancer.  Note that utilities like rd-jobs and rd-projects will no longer work and you will need to use the newer [rd](https://github.com/rundeck/rundeck-cli) command line utility.
 
@@ -98,11 +98,11 @@ SKIP_DATABASE_SETUP - Set to true if database is already setup and/or database a
 If you are running Rundeck behind a web proxy, use the following:
 ```
 sudo docker run -p 4440:4440 \
-  -e SERVER_URL=http://MY.HOSTNAME.COM:4440 \
+  -e EXTERNAL_SERVER_URL=http://MY.HOSTNAME.COM:4440 \
   -e HTTP_PROXY="http://WEBPROXY:PORT" \
   -e HTTPS_PROXY="http://WEBPROXY:PORT" \
   -e RDECK_JVM="-Djava.net.useSystemProxies=true" \
-  --name rundeck -t jordan/rundeck:latest
+  --name rundeck -t adarobin/rundeck:latest
 ```
 
 
