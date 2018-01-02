@@ -22,8 +22,9 @@ RUN yum -y install http://repo.rundeck.org/latest.rpm && \
                    make ruby ruby-devel gcc redhat-lsb-core && \
     yum -y update && \
     yum clean all && \
-    gem install winrm -v 1.8.1 && \
-    gem install winrm-fs -v 0.4.3 && \
+    gem install winrm -v 2.2.3 && \
+    gem install winrm-fs -v 1.0.2 && \
+    gem install rubyntlm -v 0.6.2 && \
     mkdir -p /var/lib/rundeck/.ssh && \
     chown rundeck:rundeck /var/lib/rundeck/.ssh
 
