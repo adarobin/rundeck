@@ -9,6 +9,7 @@ It is a fork of [jjethwa/rundeck](https://github.com/jjethwa/rundeck) modified t
 
 1. Based on CentOS 7
 1. Supervisor, MySQL, and rundeck
+1. It can take anywhere from 30 seconds to a few minutes for Rundeck to start depending on the available resources for the container (and host VM).
 1. No SSH.  Use docker exec or [nsenter](https://github.com/jpetazzo/nsenter)
 1. If RUNDECK_PASSWORD is not supplied, it will be randomly generated and shown via stdout.
 1. Supply the EXTERNAL_SERVER_URL or it will default to https://0.0.0.0:4443
