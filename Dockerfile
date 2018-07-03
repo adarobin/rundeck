@@ -12,7 +12,8 @@ ENV SERVER_URL=https://localhost:4443 \
     LOGIN_MODULE=RDpropertyfilelogin \
     JAAS_CONF_FILE=jaas-loginmodule.conf \
     KEYSTORE_PASS=adminadmin \
-    TRUSTSTORE_PASS=adminadmin
+    TRUSTSTORE_PASS=adminadmin \
+    CLUSTER_MODE=false
 
 RUN yum -y install http://repo.rundeck.org/latest.rpm && \
     yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
